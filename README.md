@@ -2,6 +2,8 @@
 
 A **Retrieval Augmented Generation (RAG)** powered banking support assistant for **TEES Bank**.
 
+![Project Preview](public/Screenshot.png)
+
 ## Features
 
 - RAG-based question answering using TEES Bank's knowledge base
@@ -68,7 +70,7 @@ cd bank_assist_api
 
 ### Frontend Setup (React + TS + Tailwind)
 ```bash
-cd frontend
+cd Frontend
 npm install
 npm run dev
 ```
@@ -106,16 +108,12 @@ bank_assist_api/
 ├── backend/
 │   ├── src/
 │   │   ├── index.ts
-│   │   ├── rag/
-│   │   │   ├── embed.ts
-│   │   │   ├── retrieve.ts
-│   │   │   └── generate.ts
 │   ├── data/
 │   │   ├── tees_bank_synthetic.json
 │   │   └── tees_bank_original.json
-│   └── .env
+│   └── 
 │
-└── frontend/
+└──
     ├── src/
     ├── components/
     └── index.html
