@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TEES Bank Design System - Dark Banking Theme */
+
+@layer base {
+  :root {
+    /* Dark theme by default */
+    --primary: 210 80% 55%;
+    --primary-foreground: 0 0% 100%;
+    
+    --background: 220 20% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 20% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 20% 12%;
+    --popover-foreground: 210 20% 95%;
+
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 15% 55%;
+
+    --accent: 210 50% 18%;
+    --accent-foreground: 210 80% 65%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 16%;
+    --ring: 210 80% 55%;
+
+    --radius: 0.75rem;
+
+    /* Custom: Banking specific colors */
+    --tees-blue: 210 80% 55%;
+    --tees-blue-light: 210 50% 18%;
+    --tees-blue-dark: 210 80% 65%;
+    --tees-success: 145 70% 40%;
+    --tees-warning: 40 95% 55%;
+    
+    /* Gradients */
+    --gradient-header: linear-gradient(135deg, hsl(210 80% 40%) 0%, hsl(210 85% 30%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(220 20% 12%) 0%, hsl(220 20% 10%) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.4);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 8px 30px -8px hsl(0 0% 0% / 0.6);
+
+    --sidebar-background: 220 20% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .tees-gradient-header {
+    background: var(--gradient-header);
+  }
+  
+  .tees-shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .tees-shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+  
+  .animate-typing {
+    animation: typing 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes typing {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}

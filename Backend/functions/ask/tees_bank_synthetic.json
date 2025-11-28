@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,  
+    "category": "Account Opening",
+    "question": "How can I open a new TEES Bank current account?",
+    "answer": "You can open a TEES Bank current account online through the TEES Bank app or website by providing proof of identity, address documentation, and completing a short verification form."
+  },
+  {
+    "id": 2,
+    "category": "Account Opening",
+    "question": "What documents are required to verify my identity?",
+    "answer": "Valid identity documents include a passport, driving licence, or national ID card. You may also need a recent utility bill or bank statement for address verification."
+  },
+  {
+    "id": 3,  
+    "category": "Fraud & Security",
+    "question": "How do I report suspicious activity on my account?",
+    "answer": "If you notice unusual transactions, immediately lock your card through the TEES Bank app and contact our Fraud Support Team via the in-app chat or hotline."
+  },
+  {
+    "id": 4,
+    "category": "Fraud & Security",
+    "question": "What steps does TEES Bank take to prevent fraud?",
+    "answer": "TEES Bank uses real-time monitoring, biometric authentication, device fingerprinting, and two-factor authentication to protect your account from fraud."
+  },
+  {
+    "id": 5,
+    "category": "Card Services",
+    "question": "How can I request a new debit card?",
+    "answer": "You can request a new debit card in the TEES Bank app under Card Services. Your new card will arrive within five business days."
+  },
+  {
+    "id": 6,
+    "category": "Card Services",
+    "question": "What should I do if my card is lost or stolen?",
+    "answer": "Immediately freeze the card in the TEES Bank app and select 'Report Lost or Stolen'. A new card will be issued to you automatically."
+  },
+  {
+    "id": 7,
+    "category": "Transfers",
+    "question": "Why is my bank transfer pending?",
+    "answer": "Transfers may pend due to security checks, incorrect recipient details, or maintenance activity. Most transfers clear within one hour."
+  },
+  {
+    "id": 8,
+    "category": "Transfers",
+    "question": "Can I cancel a transfer after sending it?",
+    "answer": "Transfers that are still pending can be cancelled in the app. Completed transfers cannot be reversed."
+  },
+  {
+    "id": 9,
+    "category": "Loans",
+    "question": "How do I apply for a personal loan?",
+    "answer": "You can apply through the TEES Bank app by selecting Loans and completing the eligibility questionnaire. A decision is provided instantly in most cases."
+  },
+  {
+    "id": 10,
+    "category": "Loans",
+    "question": "What factors affect my loan approval?",
+    "answer": "Loan decisions are based on affordability checks, credit score, income stability, and existing repayment history."
+  },
+  {
+    "id": 11,
+    "category": "Refunds & Disputes",
+    "question": "How do I dispute a card transaction?",
+    "answer": "You can dispute a transaction directly in the app by selecting the transaction and tapping 'Report an Issue'. Our team will review it within 10 business days."
+  },
+  {
+    "id": 12,
+    "category": "Refunds & Disputes",
+    "question": "When will I receive my refund?",
+    "answer": "Refund times depend on the merchant, but most refunds are processed within 3\u20135 business days after approval."
+  },
+  {
+    "id": 13,
+    "category": "Online Banking Support",
+    "question": "Why can't I log into my TEES Bank account?",
+    "answer": "You may be using outdated login credentials or experiencing a poor network connection. Reset your password or try logging in on another device."
+  },
+  {
+    "id": 14,
+    "category": "Online Banking Support",
+    "question": "How do I reset my online banking password?",
+    "answer": "Tap 'Forgot Password' on the login screen and follow the verification steps to set a new password."
+  },
+  {
+    "id": 15, 
+    "category": "General Banking",
+    "question": "Does TEES Bank offer student accounts?",
+    "answer": "Yes, TEES Bank offers student accounts with no monthly fees and optional overdraft protection."
+  },
+  {
+    "id": 16,
+    "category": "General Banking",
+    "question": "Where can I find my account number and sort code?",
+    "answer": "Your account details are available on the Home screen of your TEES Bank app under 'Account Information'."
+  },
+  {
+    "id": 17,
+    "category": "Security",
+    "question": "Does TEES Bank support biometric login?",
+    "answer": "Yes, you can enable fingerprint or facial recognition for faster and more secure login."
+  },
+  {
+    "id": 18,
+    "category": "Security",
+    "question": "How does TEES Bank protect my online sessions?",
+    "answer": "We use encrypted communication, real-time threat detection, and automatic session timeout to protect your data."
+  },
+  {
+    "id": 19,
+    "category": "Payments",
+    "question": "Why was my card payment declined?",
+    "answer": "Declines can occur due to insufficient funds, merchant restrictions, or security concerns. You can check the reason in the app."
+  },
+  {
+    "id": 20,
+    "category": "Payments",
+    "question": "Can I schedule recurring payments?",
+    "answer": "Yes, you can schedule standing orders or recurring payments from the Payments section in the TEES Bank app."
+  }
+]
