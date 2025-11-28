@@ -1,73 +1,140 @@
-# Welcome to your Lovable project
+```markdown
+# Bank Assist API
 
-## Project info
+A **Retrieval Augmented Generation (RAG)** powered banking support assistant for **TEES Bank**.
 
-**URL**: https://lovable.dev/projects/9963a4ca-b77d-47a3-abf8-9da8f59cdf09
+## Features
 
-## How can I edit this code?
+- RAG-based question answering using TEES Bank's knowledge base
+- Fast and lightweight Node.js API
+- Embedding-based similarity search (custom cosine matching)
+- Secure environment variable loading
+- Modern React frontend with TypeScript + Tailwind
+- Works locally or via cloud deployment
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+### Backend
+- Node.js
+- TypeScript
+- Express (or Deno if you choose)
+- Custom RAG pipeline
+- JSON knowledge base
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9963a4ca-b77d-47a3-abf8-9da8f59cdf09) and start prompting.
+### Frontend
+- React (TypeScript template)
+- Vite
+- Tailwind CSS
+- shadcn UI components
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### 1. Clone the Repo
+```bash
+git clone https://github.com/your-username/bank_assist_api.git
+cd bank_assist_api
 ```
 
-**Edit a file directly in GitHub**
+### Backend Setup (Node.js + TypeScript)
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+2. **Add Your Environment Variables**
+   Create a `.env` file in the backend root:
+   ```env
+   OPENAI_API_KEY=your-api-key-here
+   # OR whichever API provider you're using (Gemini, Lovable Gateway, etc):
+   AI_API_KEY=your-key-here
+   ```
 
-**Use GitHub Codespaces**
+3. **Add Your Knowledge Base**
+   Place your dataset here:
+   ```
+   /data/tees_bank_synthetic.json
+   /data/tees_bank_original.json
+   ```
+   You can merge them manually or via code.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+4. **Start the API**
+   ```bash
+   npm run dev
+   ```
+   Backend now runs at:
+   [http://localhost:3000](http://localhost:3000)
 
-## What technologies are used for this project?
+### Frontend Setup (React + TS + Tailwind)
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs at:
+[http://localhost:5173](http://localhost:5173)
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## API Endpoint
 
-## How can I deploy this project?
+**POST /api/ask**
+Send a question to the RAG model:
 
-Simply open [Lovable](https://lovable.dev/projects/9963a4ca-b77d-47a3-abf8-9da8f59cdf09) and click on Share -> Publish.
+**Request:**
+```json
+{
+  "question": "How do I reset my TEES Bank debit card PIN?"
+}
+```
 
-## Can I connect a custom domain to my Lovable project?
+**Response:**
+```json
+{
+  "answer": "You can reset your TEES Bank debit card PIN by..."
+}
+```
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Folder Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```
+bank_assist_api/
+│
+├── backend/
+│   ├── src/
+│   │   ├── index.ts
+│   │   ├── rag/
+│   │   │   ├── embed.ts
+│   │   │   ├── retrieve.ts
+│   │   │   └── generate.ts
+│   ├── data/
+│   │   ├── tees_bank_synthetic.json
+│   │   └── tees_bank_original.json
+│   └── .env
+│
+└── frontend/
+    ├── src/
+    ├── components/
+    └── index.html
+```
+
+---
+
+## Deployment
+
+Deploy easily using:
+- Vercel (frontend + backend)
+- Netlify + Railway
+- Render
+- Fly.io
+- Any Node hosting environment
+
+---
+
+## License
+
+This project is fully owned and maintained by **Ayooluwa Samuel**.
+```
