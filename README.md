@@ -1,4 +1,3 @@
-```markdown
 # Bank Assist API
 
 A **Retrieval Augmented Generation (RAG)** powered banking support assistant for **TEES Bank**.
@@ -35,6 +34,7 @@ A **Retrieval Augmented Generation (RAG)** powered banking support assistant for
 ```bash
 git clone https://github.com/your-username/bank_assist_api.git
 cd bank_assist_api
+
 ```
 
 ### Backend Setup (Node.js + TypeScript)
