@@ -98,29 +98,28 @@ ${context.join("\n\n---\n\n")}
       throw new Error("Missing environment variable: TEESBANK_OPENAI_KEY");
     }
 
+
+
     // RAG Step 3 — Call OpenAI API directly
-    const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+        const aiResponse = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${OPENAI_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
+        model: "gpt-4.1-mini",
+        input: [
           { role: "system", content: systemPrompt },
           { role: "user", content: question }
-        ],
-        temperature: 0.7,
-        max_tokens: 400
+        ]
       })
     });
 
     const data = await aiResponse.json();
     console.log("AI responded successfully");
 
-    const answer = data.choices?.[0]?.message?.content
-      || "I’m sorry, I couldn't generate a response.";
+  const answer = data.output_text ?? "I couldn't generate a response.";
 
     return new Response(
       JSON.stringify({ answer }),
