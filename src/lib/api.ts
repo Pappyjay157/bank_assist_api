@@ -1,31 +1,46 @@
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-
+// api.ts - frontend
 export interface AskResponse {
   answer?: string;
   error?: string;
 }
 
+const BACKEND_URL = "http://localhost:3001";
+
+if (!BACKEND_URL) {
+  console.error("❌ Missing VITE_BACKEND_URL in .env");
+}
+
 export async function askBackend(question: string): Promise<AskResponse> {
   try {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/ask`, {
+    const response = await fetch(`${BACKEND_URL}/ask`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question }),
     });
 
-    const data = await response.json();
+    // Prevent JSON parse errors
+    const text = await response.text();
+    let data: any = {};
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return { error: "Invalid JSON returned from backend" };
+    }
 
     if (!response.ok) {
-      return { error: data.error || "Failed to get response" };
+      return { error: data.error || "Backend error" };
     }
 
     return data;
+
   } catch (error) {
     console.error("API Error:", error);
-    return { 
-      error: error instanceof Error ? error.message : "Network error. Please check your connection." 
+    return {
+      error:
+        error instanceof Error
+          ? error.message
+          : "Network connection error",
     };
   }
 }

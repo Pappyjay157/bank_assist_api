@@ -1,6 +1,19 @@
 import { Building2, Shield } from "lucide-react";
+import { useState } from "react";
 
-const ChatHeader = () => {
+interface ChatHeaderProps {
+  onModeChange?: (mode: "RAG" | "API") => void; // optional callback for parent
+}
+
+const ChatHeader: React.FC<ChatHeaderProps> = ({ onModeChange }) => {
+  const [chatMode, setChatMode] = useState<"RAG" | "API">("RAG");
+
+  const handleToggle = () => {
+    const newMode = chatMode === "RAG" ? "API" : "RAG";
+    setChatMode(newMode);
+    if (onModeChange) onModeChange(newMode);
+  };
+
   return (
     <header className="tees-gradient-header px-6 py-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
@@ -16,9 +29,21 @@ const ChatHeader = () => {
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 text-primary-foreground/80 text-xs">
-        <Shield className="w-4 h-4" />
-        <span>Secure Chat</span>
+
+      <div className="flex items-center gap-4">
+        {/* Secure Chat info */}
+        <div className="flex items-center gap-2 text-primary-foreground/80 text-xs">
+          <Shield className="w-4 h-4" />
+          <span>Secure Chat</span>
+        </div>
+
+        {/* Toggle Button */}
+        <button
+          onClick={handleToggle}
+          className="px-3 py-1 rounded-full border border-primary-foreground/50 bg-primary-foreground/10 text-primary-foreground text-xs font-medium hover:bg-primary-foreground/20 transition"
+        >
+          {chatMode === "RAG" ? "RAG Mode" : "API Mode"}
+        </button>
       </div>
     </header>
   );
