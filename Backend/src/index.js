@@ -24,8 +24,6 @@ Your responsibilities:
 
 `;
 
-// ---- REMOVE app.listen FROM HERE ---- //
-
 // ---- Initialize RAG first, then start server ---- //
 initRAG()
   .then(() => {
