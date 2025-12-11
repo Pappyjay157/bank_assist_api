@@ -26,9 +26,13 @@ Rules:
 5. Keep answers short, helpful, and professional.
 `;
 
+<<<<<<< HEAD
 
 
 
+=======
+// ---- Initialize RAG first, then start server ---- //
+>>>>>>> 0d88fd7db734570e4cb5b56b70f2fbd100768cce
 initRAG()
   .then(() => {
     console.log("RAG is ready!");
