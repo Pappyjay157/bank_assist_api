@@ -14,16 +14,26 @@ interface Message {
   timestamp: Date;
 }
 
-const WELCOME_MESSAGE: Message = {
+const getWelcomeMessage = (mode: "RAG" | "API"): Message => ({
   id: "welcome",
-  content: "Hello! I'm TEES Bank Assist, your virtual banking assistant. How can I help you today? You can ask me about account services, PIN resets, interest rates, and more.",
   role: "assistant",
   timestamp: new Date(),
-};
+  content:
+    mode === "RAG"
+      ? "Hello! I'm TEES Bank Assist using RAG mode. I will answer using verified Tees Bank knowledge."
+      : "Hello! I'm TEES Bank Assist using API mode. I will answer based on general banking knowledge.",
+});
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
+  const [mode, setMode] = useState<"RAG" | "API">("RAG");
+
+const [messages, setMessages] = useState<Message[]>([
+  getWelcomeMessage("RAG"),
+]);
+
   const [isLoading, setIsLoading] = useState(false);
+
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -33,9 +43,12 @@ const ChatWindow = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+  
+  useEffect(() => {
+  setMessages([getWelcomeMessage(mode)]);
+}, [mode]);
 
   const handleSendMessage = async (content: string) => {
-    // Add user message
     const userMessage: Message = {
       id: `user-${Date.now()}`,
       content,
@@ -46,13 +59,13 @@ const ChatWindow = () => {
     setIsLoading(true);
 
     try {
-      const response = await askBackend(content);
-      
+      //  CALL BACKEND WITH CURRENT MODE
+      const response = await askBackend(content, mode);
+
       if (response.error) {
         throw new Error(response.error);
       }
 
-      // Add assistant response
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
         content: response.answer,
@@ -64,14 +77,17 @@ const ChatWindow = () => {
       console.error("Chat error:", error);
       toast({
         title: "Unable to get response",
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Please try again later.",
         variant: "destructive",
       });
-      
-      // Add error message
+
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
-        content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
+        content:
+          "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
         role: "assistant",
         timestamp: new Date(),
       };
@@ -85,10 +101,10 @@ const ChatWindow = () => {
 
   return (
     <div className="flex flex-col h-full bg-background overflow-hidden">
-      {/* Header */}
-      <ChatHeader />
+      {/* HEADER */}
+      <ChatHeader mode={mode} onModeChange={setMode} />
 
-      {/* Messages Area */}
+      {/* MESSAGES */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <MessageBubble
@@ -98,13 +114,11 @@ const ChatWindow = () => {
             timestamp={message.timestamp}
           />
         ))}
-        
+
         {isLoading && <TypingIndicator />}
-        
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggestions */}
       {showSuggestions && (
         <SuggestionChips
           onSelectSuggestion={handleSendMessage}
@@ -112,7 +126,6 @@ const ChatWindow = () => {
         />
       )}
 
-      {/* Input Area */}
       <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
     </div>
   );

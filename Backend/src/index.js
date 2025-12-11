@@ -11,22 +11,24 @@ app.use(cors());
 app.use(express.json());
 
 const client = new OpenAI({
-  apiKey: process.env.TEESBANK_OPENAI_KEY,
+  apiKey: "sk-***" ,
 });
 
 
 const SYSTEM_PROMPT = `
 You are TeeBot, the official AI assistant for Tees Bank.
 
-Your responsibilities:
-- Help customers understand their account details, loan info, transactions, and product offerings.
-- Use ONLY factual information retrieved from RAG context when answering questions about the bank.
-
+Rules:
+1. ALWAYS attempt to answer based on the RAG data provided.
+2. If the RAG data is missing or incomplete, STILL answer confidently using general banking knowledge.
+3. NEVER say "I don't know" or "I don't have information".
+4. NEVER tell the user to visit a website or call support unless the question is impossible.
+5. Keep answers short, helpful, and professional.
 `;
 
-// ---- REMOVE app.listen FROM HERE ---- //
 
-// ---- Initialize RAG first, then start server ---- //
+
+
 initRAG()
   .then(() => {
     console.log("RAG is ready!");
@@ -41,29 +43,61 @@ initRAG()
 
 app.post("/ask", async (req, res) => {
   try {
-    const { question } = req.body;
+    const { question, mode } = req.body;
 
     if (!question) {
       return res.status(400).json({ error: "Missing question" });
     }
 
-    const ragContext = await runRAG(question);
+    let messages = [
+      { role: "system", content: SYSTEM_PROMPT }
+    ];
+
+    // ---------------------------------------
+    //  MODE 1: RAG MODE (use JSON + vector DB)
+    // ---------------------------------------
+    if (mode === "RAG") {
+      try {
+        const ragContext = await runRAG(question);
+
+        messages.push({
+          role: "system",
+          content: `Relevant Data:\n${ragContext}`
+        });
+
+      } catch (err) {
+        console.error("RAG failed:", err);
+        messages.push({
+          role: "system",
+          content: "RAG failed. Respond using general banking knowledge."
+        });
+      }
+    }
+
+    // ---------------------------------------
+    //  MODE 2: API MODE (NO RAG, NO JSON)
+    // ---------------------------------------
+    if (mode === "API") {
+      messages.push({
+        role: "system",
+        content: "RAG is disabled. Answer using only your general banking knowledge."
+      });
+    }
+
+    messages.push({ role: "user", content: question });
 
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0.2,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "system", content: `Relevant Data:\n${ragContext}` },
-        { role: "user", content: question }
-      ],
+      messages,
     });
 
-    const answer = response.choices?.[0]?.message?.content;
+    res.json({
+      answer: response.choices?.[0]?.message?.content || ""
+    });
 
-    res.json({ answer });
   } catch (err) {
-    console.error("Backend error:", err);
+    console.error("Backend error", err);
     res.status(500).json({ error: "Server error" });
   }
 });

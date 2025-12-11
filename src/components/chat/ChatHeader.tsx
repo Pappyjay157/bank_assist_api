@@ -2,16 +2,15 @@ import { Building2, Shield } from "lucide-react";
 import { useState } from "react";
 
 interface ChatHeaderProps {
-  onModeChange?: (mode: "RAG" | "API") => void; // optional callback for parent
+  mode: "RAG" | "API";
+  onModeChange: (mode: "RAG" | "API") => void;
 }
 
-const ChatHeader: React.FC<ChatHeaderProps> = ({ onModeChange }) => {
-  const [chatMode, setChatMode] = useState<"RAG" | "API">("RAG");
+const ChatHeader: React.FC<ChatHeaderProps> = ({ mode,onModeChange }) => {
 
   const handleToggle = () => {
-    const newMode = chatMode === "RAG" ? "API" : "RAG";
-    setChatMode(newMode);
-    if (onModeChange) onModeChange(newMode);
+    const newMode = mode === "RAG" ? "API" : "RAG";
+    onModeChange(newMode);
   };
 
   return (
@@ -42,7 +41,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ onModeChange }) => {
           onClick={handleToggle}
           className="px-3 py-1 rounded-full border border-primary-foreground/50 bg-primary-foreground/10 text-primary-foreground text-xs font-medium hover:bg-primary-foreground/20 transition"
         >
-          {chatMode === "RAG" ? "RAG Mode" : "API Mode"}
+          {mode === "RAG" ? "RAG Mode" : "API Mode"}
         </button>
       </div>
     </header>

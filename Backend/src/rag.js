@@ -4,8 +4,9 @@ import { fileURLToPath } from "url";
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  apiKey: process.env.TEESBANK_OPENAI_KEY,
+  apiKey: "sk-**** ",
 });
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 let data = [];
@@ -23,17 +24,17 @@ export async function initRAG() {
     console.log(`Loaded ${data.length} banking knowledge records`);
 
     // Pre-generate embeddings
-    const texts = data.map((item) => item.content);
+  const texts = data.map((item) => item.answer);  // <-- use the ANSWER as embedding source
 
-    const embedding = await client.embeddings.create({
-      model: "text-embedding-3-small",
-      input: texts,
-    });
+  const embeddingResponse = await client.embeddings.create({
+    model: "text-embedding-3-small",
+    input: texts
+  });
 
-    embeddedData = data.map((item, index) => ({
-      ...item,
-      embedding: embedding.data[index].embedding,
-    }));
+  embeddedData = data.map((item, index) => ({
+    ...item,
+    embedding: embeddingResponse.data[index].embedding,
+  }));
 
     console.log("RAG initialized with embeddings.");
   } catch (err) {
@@ -68,7 +69,8 @@ export async function runRAG(query) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
 
-  return ranked.map((r) => r.content).join("\n\n");
+  // FIXED → use r.answer (not r.content)
+  return ranked.map((r) => r.answer).join("\n\n");
 }
 
 // Initialize on import
