@@ -10,8 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//Use your OpenAI API key here
 const client = new OpenAI({
-  apiKey: "sk-***" ,
+  apiKey: "sk-****" ,
 });
 
 
@@ -26,13 +27,9 @@ Rules:
 5. Keep answers short, helpful, and professional.
 `;
 
-<<<<<<< HEAD
 
 
 
-=======
-// ---- Initialize RAG first, then start server ---- //
->>>>>>> 0d88fd7db734570e4cb5b56b70f2fbd100768cce
 initRAG()
   .then(() => {
     console.log("RAG is ready!");

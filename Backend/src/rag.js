@@ -3,8 +3,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import OpenAI from "openai";
 
+//Use your OpenAI API key here
 const client = new OpenAI({
-  apiKey: "sk-**** ",
+  apiKey: "sk-****",
 });
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,7 +70,7 @@ export async function runRAG(query) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
 
-  // FIXED → use r.answer (not r.content)
+
   return ranked.map((r) => r.answer).join("\n\n");
 }
 
